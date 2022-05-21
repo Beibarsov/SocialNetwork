@@ -98,7 +98,8 @@ namespace SocialNetwork
                                                 Console.WriteLine("Кому мы его отправляем? Укажите почту:");
                                                 message.RecepientEmail = Console.ReadLine();
 
-                                                try{
+                                                try
+                                                {
                                                     messageService.CreateMessage(message);
                                                     Console.WriteLine("Сообщение создано");
                                                 }
@@ -121,7 +122,7 @@ namespace SocialNetwork
                                                     Console.WriteLine("Текст письма: " + message.Content);
                                                 }
                                                 break;
-                                            }  
+                                            }
                                         case "6":
                                             {
                                                 foreach (var message in messageService.GetOutGoingMessagesByUserID(user.Id))
