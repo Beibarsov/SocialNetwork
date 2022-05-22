@@ -13,10 +13,10 @@ namespace SocialNetwork.PPL.Views
         UserService userService;
         MessageService messageService;
 
-        public UserMenuView()
+        public UserMenuView(UserService userService, MessageService messageService)
         {
-            userService = new UserService();
-            messageService = new MessageService();
+            this.userService = userService;
+            this.messageService = messageService;
         }
 
         public void Show(User user)
@@ -36,86 +36,27 @@ namespace SocialNetwork.PPL.Views
                 {
                     case "1":
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Информация о моем профиле");
-                            Console.WriteLine("Мой идентификатор: {0}", user.Id);
-                            Console.WriteLine("Меня зовут: {0}", user.FirstName);
-                            Console.WriteLine("Моя фамилия: {0}", user.LastName);
-                            Console.WriteLine("Мой пароль: {0}", user.Password);
-                            Console.WriteLine("Мой почтовый адрес: {0}", user.Email);
-                            Console.WriteLine("Ссылка на моё фото: {0}", user.Photo);
-                            Console.WriteLine("Мой любимый фильм: {0}", user.FavoriteMovie);
-                            Console.WriteLine("Моя любимая книга: {0}", user.FavoriteBook);
-                            Console.ForegroundColor = ConsoleColor.White;
+                            Program.UserProfileDetailInfoView.Show(user);
                             break;
                         }
                     case "2":
                         {
-                            Console.Write("Меня зовут:");
-                            user.FirstName = Console.ReadLine();
-
-                            Console.Write("Моя фамилия:");
-                            user.LastName = Console.ReadLine();
-
-                            Console.Write("Ссылка на моё фото:");
-                            user.Photo = Console.ReadLine();
-
-                            Console.Write("Мой любимый фильм:");
-                            user.FavoriteMovie = Console.ReadLine();
-
-                            Console.Write("Моя любимая книга:");
-                            user.FavoriteBook = Console.ReadLine();
-
-                            userService.Update(user);
-
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Ваш профиль успешно обновлён!");
-                            Console.ForegroundColor = ConsoleColor.White;
-
+                            Program.UserProfileDetailEditView.Show(user);
                             break;
                         }
                     case "4":
                         {
-                            MessageSendingData message = new MessageSendingData();
-
-                            message.SenderID = user.Id;
-                            Console.WriteLine("Напишите текст сообщения:");
-                            message.Content = Console.ReadLine();
-                            Console.WriteLine("Кому мы его отправляем? Укажите почту:");
-                            message.RecepientEmail = Console.ReadLine();
-
-                            try
-                            {
-                                messageService.CreateMessage(message);
-                                Console.WriteLine("Сообщение создано");
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(message.SenderID);
-                                Console.WriteLine(message.Content);
-                                Console.WriteLine(message.RecepientEmail);
-                                Console.WriteLine("Какая-то ошибка" + ex.Message);
-                            }
-
-
+                            Program.SendMessageView.Show(user);
                             break;
                         }
                     case "5":
                         {
-                            foreach (var message in messageService.GetIncomingMessagesByUserID(user.Id))
-                            {
-                                Console.WriteLine("Вам писал: " + message.SenderEmail);
-                                Console.WriteLine("Текст письма: " + message.Content);
-                            }
+                            
                             break;
                         }
                     case "6":
                         {
-                            foreach (var message in messageService.GetOutGoingMessagesByUserID(user.Id))
-                            {
-                                Console.WriteLine("Вы писали: " + message.RecepientEmail);
-                                Console.WriteLine("Текст письма: " + message.Content);
-                            }
+
                             break;
                         }
                     case "0":

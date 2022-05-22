@@ -7,21 +7,36 @@ namespace SocialNetwork
 {
     class Program
     {
-        public static UserService userService = new UserService();
-        public static MessageService messageService = new MessageService();
+        public static UserService userService;
+        public static MessageService messageService;
 
 
         public static MainView MainView;
         public static AuthOnProfileView AuthOnProfileView;
         public static RegistrationUserVIew RegistrationUserVIew;
         public static UserMenuView UserMenuView;
+        public static UserProfileDetailInfoView UserProfileDetailInfoView;
+        public static UserProfileDetailEditView UserProfileDetailEditView;
+        public static SendMessageView SendMessageView;
+        public static UserShowIncomingMessagesView UserShowIncomingMessagesView;
+        public static UserShowOutgoingMessagesView UserShowOutgoingMessagesView;
 
         static void Main(string[] args)
         {
+            userService = new UserService();
+            messageService = new MessageService();
+
             MainView = new MainView();
-            AuthOnProfileView = new AuthOnProfileView();
-            RegistrationUserVIew = new RegistrationUserVIew();
-            UserMenuView = new UserMenuView();
+            AuthOnProfileView = new AuthOnProfileView(userService);
+            RegistrationUserVIew = new RegistrationUserVIew(userService);
+            UserMenuView = new UserMenuView(userService, messageService);
+            UserProfileDetailInfoView = new UserProfileDetailInfoView();
+            UserProfileDetailEditView = new UserProfileDetailEditView(userService);
+            SendMessageView = new SendMessageView(messageService, userService);
+            UserShowIncomingMessagesView = new UserShowIncomingMessagesView(messageService);
+            UserShowOutgoingMessagesView = new UserShowOutgoingMessagesView(messageService);
+
+
 
             while (true)
             {
