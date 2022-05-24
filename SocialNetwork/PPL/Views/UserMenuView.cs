@@ -26,10 +26,11 @@ namespace SocialNetwork.PPL.Views
             {
                 Console.WriteLine("Просмотреть информацию о моём профиле (нажмите 1)");
                 Console.WriteLine("Редактировать мой профиль (нажмите 2)");
-                Console.WriteLine("Добавить в друзья (нажмите 3)");
                 Console.WriteLine("Написать сообщение (нажмите 4)");
                 Console.WriteLine("Прочитать входящие сообщения (нажмите 5)");
                 Console.WriteLine("Прочитать исходящие сообщения (нажмите 6)");
+                Console.WriteLine("Добавить друга (нажмите 7)");
+                Console.WriteLine("Посмотреть своих друзей (нажмите 8)");
                 Console.WriteLine("Выйти из профиля (нажмите 0)");
 
                 switch (Console.ReadLine())
@@ -51,12 +52,22 @@ namespace SocialNetwork.PPL.Views
                         }
                     case "5":
                         {
-                            
+                            Program.UserShowIncomingMessagesView.Show(user);
                             break;
                         }
                     case "6":
                         {
-
+                            Program.UserShowOutgoingMessagesView.Show(user);
+                            break;
+                        }
+                    case "7":
+                        {
+                            Program.UserAddFriendView.Show(user);
+                            break;
+                        }
+                    case "8":
+                        {
+                            Program.UserAllFriendView.Show(user);
                             break;
                         }
                     case "0":
